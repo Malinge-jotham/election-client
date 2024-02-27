@@ -1,3 +1,5 @@
+import { Buffer } from 'buffer'; // Import Buffer
+
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App.jsx";
@@ -13,6 +15,8 @@ import CandidateRegistration from "./components/CandidateRegistration.jsx";
 import Login from "./pages/Login.jsx";
 import Results from "./pages/Results.jsx";
 import CandidateForm from "./pages/CandidateForm.jsx";
+import Reports from "./pages/Reports.jsx";
+import CandidatesReports from './pages/CandidatesReports.jsx';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +51,15 @@ const router = createBrowserRouter([
         path: "/Login",
         element: <Login />,
       },
+      {
+        path: "/Reports",
+        element: <Reports />,
+      },
+      {
+        path: "/Tally",
+        element: <CandidatesReports />,
+      },
+
     ],
   },
 ]);

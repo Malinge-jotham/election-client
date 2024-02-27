@@ -1,86 +1,55 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import Loader from '../components/Loader'; // Import Loader component
 
 const Voting = () => {
-  const [candidateId, setCandidateId] = useState('');
-  const [post, setPost] = useState('');
-  const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState(false); // State to track loading state
-  const [axiosInstance, setAxiosInstance] = useState(null);
+    const [candidateId, setCandidateId] = useState('');
+    const [post, setPost] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const instance = axios.create({
-        baseURL: 'http://localhost:3000',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError('');
+        setSuccess('');
+
+        try {
+            // Make a POST request to the server
+            const response = await axios.post('http://localhost:3000/vote', {
+                candidate_id: candidateId,
+                post: post
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}` // Attach JWT token from localStorage
+                }
+            });
+            setSuccess(response.data);
+        } catch (err) {
+            setError(err.response.data);
+        } finally {
+            setLoading(false);
         }
-      });
-      setAxiosInstance(instance);
-    }
-  }, []);
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true); // Set loading state to true when form is submitted
-  
-    // Check if axiosInstance is initialized
-    if (!axiosInstance) {
-      console.error('axiosInstance is not initialized');
-      setMessage('Error voting');
-      setLoading(false);
-      return;
-    }
-  
-    try {
-      const response = await axiosInstance.post('/vote', { candidate_id: candidateId, post });
-      console.log(response); // Log the response object
-      setMessage(response.data);
-    } catch (error) {
-      if (error.response && error.response.data) {
-        console.error('Error voting:', error.response.data);
-        setMessage('Error voting');
-      } else {
-        console.error('Error voting:', error.message); // Log the error message
-        setMessage('Error voting'); // Set a default error message
-      }
-    } finally {
-      setLoading(false); // Set loading state to false after form submission
-    }
-  };
-  
-  
-  return (
-    <div className="container mx-auto mt-8">
-      <h2 className="text-2xl font-bold mb-4">Voting</h2>
-      {loading ? ( // Conditionally render Loader if loading state is true
-        <Loader />
-      ) : (
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-          <div className="mb-4">
-            <input type="text" placeholder="Candidate ID" value={candidateId} onChange={(e) => setCandidateId(e.target.value)} className="w-full border border-gray-300 rounded px-3 py-2" />
-          </div>
-          <div className="mb-4">
-            <select value={post} onChange={(e) => setPost(e.target.value)} className="w-full border border-gray-300 rounded px-3 py-2">
-              <option value="">Select Post</option>
-              <option value="president">President</option>
-              <option value="congress">Congress</option>
-              {/* Add more options as needed */}
-            </select>
-          </div>
-          <button type="submit" className="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600">Vote</button>
-        </form>
-      )}
-      {message && (
-        <div className={`text-${message.type === 'error' ? 'red' : 'green'}-500 mt-4`}>
-          {message}
+    };
+
+    return (
+        <div className="container mx-auto max-w-md p-4">
+            <h2 className="text-2xl font-semibold mb-4">Vote Form</h2>
+            {error && <div className="bg-red-100 text-red-700 p-3 mb-4">{error}</div>}
+            {success && <div className="bg-green-100 text-green-700 p-3 mb-4">{success}</div>}
+            <form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                    <label htmlFor="candidateId" className="block text-sm font-medium text-gray-700">Candidate ID:</label>
+                    <input type="text" id="candidateId" value={candidateId} onChange={(e) => setCandidateId(e.target.value)} className="mt-1 p-2 border border-gray-300 rounded-md w-full" required />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="post" className="block text-sm font-medium text-gray-700">Post:</label>
+                    <input type="text" id="post" value={post} onChange={(e) => setPost(e.target.value)} className="mt-1 p-2 border border-gray-300 rounded-md w-full" required />
+                </div>
+                <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md transition duration-300 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400">{loading ? 'Submitting...' : 'Submit Vote'}</button>
+            </form>
         </div>
-      )}
-    </div>
-  );
+    );
 };
 
 export default Voting;

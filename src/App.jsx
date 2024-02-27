@@ -1,3 +1,7 @@
+import { Buffer } from 'buffer';
+
+// Your application code here
+
 import { Outlet } from "react-router-dom";
 import React from 'react'
 import "./App.css";

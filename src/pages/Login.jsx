@@ -1,22 +1,28 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post('http://localhost:3000/login', { username, password });
       const { token } = response.data;
-      localStorage.setItem('token', token); // Store token in localStorage
+      localStorage.setItem('token', token);
       setError('');
-      // Redirect to dashboard or perform necessary actions upon successful login
+      setLoading(false);
+      onLogin();
+      // Redirect to the home route after successful login
+      window.location.href = '/';
     } catch (error) {
       console.error('Error logging in:', error.response.data);
       setError(error.response.data);
+      setLoading(false);
     }
   };
 
@@ -31,7 +37,9 @@ const Login = () => {
         <div className="mb-4">
           <input type="password" className="w-full border border-gray-300 rounded px-3 py-2" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
-        <button type="submit" className="w-full bg-blue-500 text-white rounded px-4 py-2">Login</button>
+        <button type="submit" className="w-full bg-blue-500 text-white rounded px-4 py-2">
+          {loading ? 'Logging in...' : 'Login'}
+        </button>
       </form>
     </div>
   );

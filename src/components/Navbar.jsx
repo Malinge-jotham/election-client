@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+
 
 const Navbar = () => {
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => {
@@ -17,15 +19,16 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between">
           <div className="flex space-x-4 items-center">
-            <Link to="/" className="text-white py-4 px-2 hover:bg-blue-600">Home</Link>
+            <Link to="/" className={`text-white py-4 px-2 hover:bg-blue-600 ${location.pathname === '/' ? 'active' : ''}`} onClick={closeNavbar}><Image src="../assets/download.png"  alt="logo"/></Link>
             {/* Wrapping the following links in a div */}
             <div className="hidden md:flex space-x-4">
-              <Link to="/register" className="text-white py-4 px-2 hover:bg-blue-600">Register</Link>
-              <Link to="/vote" className="text-white py-4 px-2 hover:bg-blue-600">Vote</Link>
-              <Link to="/Cand-Register" className="text-white py-4 px-2 hover:bg-blue-600">Candidate Registration</Link>
-              <Link to="/results" className="text-white py-4 px-2 hover:bg-blue-600">Results</Link>
-              <Link to="/candidates" className="text-white py-4 px-2 hover:bg-blue-600">candidates</Link>
-
+              <Link to="/register" className={`text-white py-4 px-2 hover:bg-blue-600 ${location.pathname === '/register' ? 'active' : ''}`} onClick={closeNavbar}>Register</Link>
+              <Link to="/vote" className={`text-white py-4 px-2 hover:bg-blue-600 ${location.pathname === '/vote' ? 'active' : ''}`} onClick={closeNavbar}>Vote</Link>
+              <Link to="/Cand-Register" className={`text-white py-4 px-2 hover:bg-blue-600 ${location.pathname === '/Cand-Register' ? 'active' : ''}`} onClick={closeNavbar}>Candidate Registration</Link>
+              <Link to="/results" className={`text-white py-4 px-2 hover:bg-blue-600 ${location.pathname === '/results' ? 'active' : ''}`} onClick={closeNavbar}>Results</Link>
+              <Link to="/candidates" className={`text-white py-4 px-2 hover:bg-blue-600 ${location.pathname === '/candidates' ? 'active' : ''}`} onClick={closeNavbar}>Candidates</Link>
+              <Link to="/Reports" className={`text-white py-4 px-2 hover:bg-blue-600 ${location.pathname === '/Reports' ? 'active' : ''}`} onClick={closeNavbar}>Reports</Link>
+              <Link to="/Tally" className={`text-white py-4 px-2 hover:bg-blue-600 ${location.pathname === '/Tally' ? 'active' : ''}`} onClick={closeNavbar}>Tally</Link>
             </div>
           </div>
           {/* Toggle icon for small and medium devices */}
@@ -48,14 +51,15 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden bg-blue-500">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link to="/" className="text-white block px-3 py-2 rounded-md text-base font-medium" onClick={closeNavbar}>Home</Link>
+            <Link to="/" className={`text-white block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/' ? 'active' : ''}`} onClick={closeNavbar}>Home</Link>
             {/* Render the same links as in the hidden div */}
-            <Link to="/register" className="text-white block px-3 py-2 rounded-md text-base font-medium" onClick={closeNavbar}>Register</Link>
-            <Link to="/vote" className="text-white block px-3 py-2 rounded-md text-base font-medium" onClick={closeNavbar}>Vote</Link>
-            <Link to="/Cand-Register" className="text-white block px-3 py-2 rounded-md text-base font-medium" onClick={closeNavbar}>Candidate Registration</Link>
-            <Link to="/results" className="text-white block px-3 py-2 rounded-md text-base font-medium" onClick={closeNavbar}>Results</Link>
-            <Link to="/candidates" className="text-white block px-3 py-2 rounded-md text-base font-medium" onClick={closeNavbar}>candidates</Link>
-
+            <Link to="/register" className={`text-white block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/register' ? 'active' : ''}`} onClick={closeNavbar}>Register</Link>
+            <Link to="/vote" className={`text-white block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/vote' ? 'active' : ''}`} onClick={closeNavbar}>Vote</Link>
+            <Link to="/Cand-Register" className={`text-white block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/Cand-Register' ? 'active' : ''}`} onClick={closeNavbar}>Candidate Registration</Link>
+            <Link to="/results" className={`text-white block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/results' ? 'active' : ''}`} onClick={closeNavbar}>Results</Link>
+            <Link to="/candidates" className={`text-white block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/candidates' ? 'active' : ''}`} onClick={closeNavbar}>Candidates</Link>
+            <Link to="/Reports" className={`text-white block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/Reports' ? 'active' : ''}`} onClick={closeNavbar}>Reports</Link>
+            <Link to="/Tally" className={`text-white block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/Tally' ? 'active' : ''}`} onClick={closeNavbar}>Tally</Link>
           </div>
         </div>
       )}

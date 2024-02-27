@@ -44,3 +44,16 @@
 .read-the-docs {
   color: #888;
 }
+/* Navbar Styles */
+.navbar {
+  /* Your navbar styles here */
+}
+
+/* Define styles for active link */
+.active {
+  background-color: blue; /* Change background color */
+  color: #000; /* Change text color */
+  font-weight: bold; /* Add bold font weight */
+  border-radius: 10px;
+}
+

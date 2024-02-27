@@ -36,7 +36,7 @@ const CandidateRegistration = () => {
                         <input type="text" placeholder="Post" value={post} onChange={(e) => setPost(e.target.value)} className="w-full border border-gray-300 rounded px-3 py-2" />
                     </div>
                     <div className="mb-4">
-                        <input type="text" placeholder="State" value={state} onChange={(e) => setState(e.target.value)} className="w-full border border-gray-300 rounded px-3 py-2" />
+                        <input type="text" placeholder="School" value={state} onChange={(e) => setState(e.target.value)} className="w-full border border-gray-300 rounded px-3 py-2" />
                     </div>
                     <button type="submit" className="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600">Register</button>
                 </form>
