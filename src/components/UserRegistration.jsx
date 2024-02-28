@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Loader from './Loader'; // Import the Loader component
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const UserRegistration = ({ onLogin }) => {
     const [username, setUsername] = useState('');
@@ -35,7 +36,12 @@ const UserRegistration = ({ onLogin }) => {
     };
 
     return (
-        <div className="w-full max-w-md mx-auto p-4 bg-white shadow-md rounded-lg">
+        <div className={`w-full max-w-md mx-auto p-4 bg-white shadow-md rounded-lg ${loading && 'relative'}`}>
+            {loading && (
+                <div className="absolute inset-0 bg-gray-400 bg-opacity-50 flex justify-center items-center z-50">
+                    <Loader />
+                </div>
+            )}
             <h2 className="text-center text-2xl font-bold mb-4 text-blue-500">User Registration</h2>
             {error && <div className="text-red-500 mb-4">{error}</div>} {/* Display error message */}
             {success && <div className="text-green-500 mb-4">{success}</div>} {/* Display success message */}
@@ -53,8 +59,11 @@ const UserRegistration = ({ onLogin }) => {
                     {loading ? <Loader /> : 'Register'} {/* Display loader while submitting */}
                 </button>
             </form>
+            <p className="text-center mt-4">
+                Already have an account? <Link to="/login" className="text-blue-500 hover:underline">Login here</Link>
+            </p>
         </div>
     );
 };
 
-export default UserRegistration
+export default UserRegistration;

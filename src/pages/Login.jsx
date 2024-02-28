@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
@@ -41,6 +42,9 @@ const Login = ({ onLogin }) => {
           {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>
+      <p className="text-center mt-4">
+        Don't have an account? <Link to="/register" className="text-blue-500 hover:underline">Register here</Link>
+      </p>
     </div>
   );
 };

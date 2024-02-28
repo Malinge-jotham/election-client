@@ -1,10 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-
 
 const Navbar = () => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  const [username, setUsername] = useState(""); // Initialize username state
+  const [loggedIn, setLoggedIn] = useState(false); // Initialize loggedIn state
+
+  useEffect(() => {
+    const token = localStorage.getItem('token'); // Get token from localStorage
+    if (token) {
+      const payload = token.split('.')[1]; // Decode token
+      const decodedPayload = atob(payload); // Decode base64 payload
+      const { username } = JSON.parse(decodedPayload); // Parse JSON payload
+      setUsername(username); // Set username state
+      setLoggedIn(true); // Set loggedIn state
+    } else {
+      setUsername(""); // Clear username state if not logged in
+      setLoggedIn(false); // Set loggedIn state
+    }
+  }, []);
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -13,6 +28,13 @@ const Navbar = () => {
   const closeNavbar = () => {
     setIsOpen(false);
   };
+    const handleLogout = () => {
+    // Perform logout actions here, such as clearing localStorage and resetting state
+    localStorage.removeItem('token');
+    setUsername(null);
+    setLoggedIn(false);
+  };
+
 
   return (
     <nav className="bg-blue-500">
@@ -30,6 +52,17 @@ const Navbar = () => {
               <Link to="/Reports" className={`text-white py-4 px-2 hover:bg-blue-600 ${location.pathname === '/Reports' ? 'active' : ''}`} onClick={closeNavbar}>Reports</Link>
               <Link to="/Tally" className={`text-white py-4 px-2 hover:bg-blue-600 ${location.pathname === '/Tally' ? 'active' : ''}`} onClick={closeNavbar}>Tally</Link>
             </div>
+          </div>
+          {/* Conditionally render username or login link */}
+          <div className="text-white py-4 px-2">
+            {loggedIn ? (
+              <span>
+                Logged in as: {username}
+                <button onClick={handleLogout} className="ml-2 text-white bg-red-500 px-2 py-1 rounded-md">Logout</button>
+              </span>
+            ) : (
+              <Link to="/login" className={`hover:bg-blue-600 ${location.pathname === '/login' ? 'active' : ''}`} onClick={closeNavbar}>Login</Link>
+            )}
           </div>
           {/* Toggle icon for small and medium devices */}
           <div className="flex md:hidden items-center">
@@ -51,8 +84,8 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden bg-blue-500">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link to="/" className={`text-white block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/' ? 'active' : ''}`} onClick={closeNavbar}>Home</Link>
             {/* Render the same links as in the hidden div */}
+            <Link to="/" className={`text-white block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/' ? 'active' : ''}`} onClick={closeNavbar}>Home</Link>
             <Link to="/register" className={`text-white block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/register' ? 'active' : ''}`} onClick={closeNavbar}>Register</Link>
             <Link to="/vote" className={`text-white block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/vote' ? 'active' : ''}`} onClick={closeNavbar}>Vote</Link>
             <Link to="/Cand-Register" className={`text-white block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/Cand-Register' ? 'active' : ''}`} onClick={closeNavbar}>Candidate Registration</Link>
@@ -60,6 +93,10 @@ const Navbar = () => {
             <Link to="/candidates" className={`text-white block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/candidates' ? 'active' : ''}`} onClick={closeNavbar}>Candidates</Link>
             <Link to="/Reports" className={`text-white block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/Reports' ? 'active' : ''}`} onClick={closeNavbar}>Reports</Link>
             <Link to="/Tally" className={`text-white block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/Tally' ? 'active' : ''}`} onClick={closeNavbar}>Tally</Link>
+            {/* Render the login link only if not logged in */}
+            {!loggedIn && (
+              <Link to="/login" className={`text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-600 ${location.pathname === '/login' ? 'active' : ''}`} onClick={closeNavbar}>Login</Link>
+            )}
           </div>
         </div>
       )}

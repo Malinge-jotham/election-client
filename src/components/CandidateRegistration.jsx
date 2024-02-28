@@ -35,12 +35,14 @@ const CandidateRegistration = () => {
                 <div className="mb-4">
                     <input type="text" placeholder="School" value={school} onChange={(e) => setSchool(e.target.value)} className="w-full border border-gray-300 rounded px-3 py-2" /> {/* Changed state variable name from 'state' to 'school' */}
                 </div>
-                {/* Conditionally render the button or the loader based on the loading state */}
-                {loading ? (
-                    <Loader />
-                ) : (
-                    <button type="submit" className="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600">Register</button>
+                {/* Conditionally render the loader and blur background while loading */}
+                {loading && (
+                    <div className="fixed top-0 left-0 w-full h-full bg-gray-400 bg-opacity-50 flex justify-center items-center z-50">
+                        <Loader />
+                    </div>
                 )}
+                {/* Conditionally render the button or the loader based on the loading state */}
+                <button type="submit" className={`bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600 ${loading && 'pointer-events-none'}`}>Register</button>
             </form>
             {message && <p className="text-red-500 mt-2">{message}</p>}
         </div>
