@@ -19,7 +19,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between">
           <div className="flex space-x-4 items-center">
-            <Link to="/" className={`text-white py-4 px-2 hover:bg-blue-600 ${location.pathname === '/' ? 'active' : ''}`} onClick={closeNavbar}><Image src="../assets/download.png"  alt="logo"/></Link>
+            <Link to="/" className={`text-white py-4 px-2 hover:bg-blue-600 ${location.pathname === '/' ? 'active' : ''}`} onClick={closeNavbar}>Home</Link>
             {/* Wrapping the following links in a div */}
             <div className="hidden md:flex space-x-4">
               <Link to="/register" className={`text-white py-4 px-2 hover:bg-blue-600 ${location.pathname === '/register' ? 'active' : ''}`} onClick={closeNavbar}>Register</Link>
