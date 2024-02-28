@@ -7,7 +7,7 @@ const Results = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/results');
+        const response = await axios.get('https://election-server.onrender.com/results');
         setResults(response.data);
       } catch (error) {
         console.error('Error fetching results:', error.response.data);

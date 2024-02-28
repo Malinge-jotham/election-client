@@ -16,7 +16,7 @@ const Voting = () => {
 
         try {
             // Make a POST request to the server
-            const response = await axios.post('http://localhost:3000/vote', {
+            const response = await axios.post('https://election-server.onrender.com/vote', {
                 candidate_id: candidateId,
                 post: post
             }, {

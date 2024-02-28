@@ -21,7 +21,7 @@ const UserRegistration = ({ onLogin }) => {
             return;
         }
         try {
-            const response = await axios.post('http://localhost:3000/register', { username, password });
+            const response = await axios.post('https://election-server.onrender.com/register', { username, password });
             setSuccess(response.data); // Set success message if registration is successful
             setUsername(''); // Clear input fields after successful registration
             setPassword('');

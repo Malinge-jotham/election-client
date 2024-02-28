@@ -5,7 +5,7 @@ import { Buffer } from 'buffer';
 const CandidateReport = () => {
     const generateCandidateReport = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/generate-candidate-report', { responseType: 'arraybuffer' });
+            const response = await axios.get('https://election-server.onrender.com/generate-candidate-report', { responseType: 'arraybuffer' });
             const buffer = Buffer.from(response.data);
             const blob = new Blob([buffer], { type: 'application/pdf' });
             const url = window.URL.createObjectURL(blob);

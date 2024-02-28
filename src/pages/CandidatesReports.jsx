@@ -12,7 +12,7 @@ const CandidatesReports = () => {
 
     const fetchPosts = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/posts');
+            const response = await axios.get('https://election-server.onrender.com/posts');
             setPosts(response.data);
             setSelectedPost(response.data[0]); // Set the default selected post
         } catch (error) {
@@ -22,7 +22,7 @@ const CandidatesReports = () => {
 
     const fetchCandidatesReports = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/candidates-reports/${selectedPost}`);
+            const response = await axios.get(`https://election-server.onrender.com/candidates-reports/${selectedPost}`);
             setCandidates(response.data);
         } catch (error) {
             console.error('Error fetching candidates reports:', error);

@@ -5,7 +5,7 @@ import { Buffer } from 'buffer';
 const VotingResultsReport = () => {
     const generateVotingResultsReport = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/generate-voting-results-report', { responseType: 'arraybuffer' });
+            const response = await axios.get('https://election-server.onrender.com/generate-voting-results-report', { responseType: 'arraybuffer' });
             console.log(response.data); // Log the response data to inspect it
             const buffer = Buffer.from(response.data);
             const blob = new Blob([buffer], { type: 'application/pdf' });

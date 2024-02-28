@@ -11,7 +11,7 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:3000/login', { username, password });
+      const response = await axios.post('https://election-server.onrender.com/login', { username, password });
       const { token } = response.data;
       localStorage.setItem('token', token);
       setError('');

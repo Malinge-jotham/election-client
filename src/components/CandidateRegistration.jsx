@@ -13,7 +13,7 @@ const CandidateRegistration = () => {
         e.preventDefault();
         setLoading(true); // Set loading state to true when form is submitted
         try {
-            const response = await axios.post('http://localhost:3000/candidates', { name, post, state });
+            const response = await axios.post('https://election-server.onrender.com/candidates', { name, post, state });
             setMessage(response.data);
         } catch (error) {
             console.error('Error registering candidate:', error.response.data);

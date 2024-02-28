@@ -10,7 +10,7 @@ const CandidateForm = () => {
         // Fetch candidate details from the server
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/candidates');
+                const response = await axios.get('https://election-server.onrender.com/candidates');
                 setCandidates(response.data);
                 setLoading(false);
             } catch (error) {
