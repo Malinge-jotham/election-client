@@ -16,6 +16,7 @@ import Login from "./pages/Login.jsx";
 import Results from "./pages/Results.jsx";
 import CandidateForm from "./pages/CandidateForm.jsx";
 import Reports from "./pages/Reports.jsx";
+import Error from "./pages/Error.jsx";
 import CandidatesReports from './pages/CandidatesReports.jsx';
 
 const router = createBrowserRouter([
@@ -59,6 +60,12 @@ const router = createBrowserRouter([
         path: "/Tally",
         element: <CandidatesReports />,
       },
+      {
+        path: "*",
+        element: <Error />,
+      },
+        
+      
 
     ],
   },
